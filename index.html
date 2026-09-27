@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Advantage &mdash; Advisory Practice</title><style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#F4F1EA;--pan:#FFFDF9;--ink:#1C1A17;--soft:#6E675E;--line:#E3DCD0;--dim:rgba(110,103,94,.10);
+--or:#B4472B;--orS:#F8EAE4;--tl:#2D5F5D;--tlS:#E3EFEE;--rd:#96311F;--rdS:#F9E7E3;
+--pu:#6B3F69;--puS:#F1E8F0;--bl:#3A4B7A;--blS:#E7EAF4;
+--serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
+--sh:0 1px 2px rgba(60,48,32,.05),0 8px 26px rgba(60,48,32,.07)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--bg:#14120F;--pan:#1D1A16;--ink:#F3EDE3;--soft:#ABA193;--line:#332E27;--dim:rgba(243,237,227,.07);
+--or:#E0714C;--orS:#38211A;--tl:#6FB3AC;--tlS:#18302E;--rd:#E0765E;--rdS:#3A1F1A;
+--pu:#B68FB3;--puS:#2C2130;--bl:#8CA0D8;--blS:#1B2038;
+--sh:0 1px 2px rgba(0,0,0,.45),0 8px 26px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#14120F;--pan:#1D1A16;--ink:#F3EDE3;--soft:#ABA193;--line:#332E27;--dim:rgba(243,237,227,.07);
+--or:#E0714C;--orS:#38211A;--tl:#6FB3AC;--tlS:#18302E;--rd:#E0765E;--rdS:#3A1F1A;--pu:#B68FB3;--puS:#2C2130;--bl:#8CA0D8;--blS:#1B2038}
+*{box-sizing:inherit}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:840px;margin:0 auto;padding:16px 16px 70px}
+h1{font-family:var(--serif);font-size:2.25rem;font-weight:600;margin:.1em 0 .1em;letter-spacing:-.01em}
+h2{font-family:var(--serif);font-size:1.4rem;font-weight:600;margin:0 0 .3em;letter-spacing:-.005em}
+p{margin:.5em 0}.sub{color:var(--soft);margin-bottom:1.1em}
+.top{display:flex;align-items:center;gap:14px;padding:10px 0 12px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
+.brandmark{font-family:var(--serif);font-weight:600;letter-spacing:.01em;font-size:1rem}
+.brandmark span{color:var(--or)}
+.dots{display:flex;gap:6px;margin-left:auto}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dot.done{background:var(--tl)}.dot.now{background:var(--or);box-shadow:0 0 0 3px var(--orS)}
+.pts{font-variant-numeric:tabular-nums;font-weight:700;font-size:.9rem;color:var(--soft)}
+.panel{background:var(--pan);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:14px 0;box-shadow:var(--sh)}
+.client{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
+.avatar{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.6rem;flex:0 0 auto}
+.badge{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-bottom:3px}
+.t-ind{background:var(--tlS);color:var(--tl)}.t-biz{background:var(--orS);color:var(--or)}
+.t-gov{background:var(--puS);color:var(--pu)}.t-nat{background:var(--blS);color:var(--bl)}
+.a-ind{background:var(--tlS)}.a-biz{background:var(--orS)}.a-gov{background:var(--puS)}.a-nat{background:var(--blS)}
+.prod{display:flex;gap:11px;flex-wrap:wrap;margin:12px 0 2px}
+.pb{flex:1 1 235px;border-radius:12px;padding:11px 14px;border:1.5px solid var(--line);background:var(--bg)}
+.pb .who{font-weight:800;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;color:var(--soft)}
+.pb.you{border-color:var(--or)}.pb.you .who{color:var(--or)}
+.pb.them{border-color:var(--tl)}.pb.them .who{color:var(--tl)}
+.pb .nums{font-variant-numeric:tabular-nums;font-size:1.02rem}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{font:inherit;font-weight:650;cursor:pointer;border-radius:11px;padding:13px 20px;border:1.5px solid var(--or);background:var(--or);color:#fff;transition:transform .08s,filter .12s}
+button:hover:not(:disabled){filter:brightness(1.07)}button:active:not(:disabled){transform:translateY(1px)}
+button:disabled{opacity:.38;cursor:not-allowed}
+button.ghost{background:transparent;color:var(--or)}button.small{padding:8px 14px;font-size:.88rem}
+button.wide{flex:1 1 215px}
+button.pick{background:var(--pan);color:var(--ink);border-color:var(--line);text-align:left;padding:15px 18px}
+button.pick:hover:not(:disabled){border-color:var(--or);filter:none}
+.fb{border-radius:12px;padding:14px 16px;margin-top:14px;border-left:4px solid}
+.fb.good{background:var(--tlS);border-color:var(--tl)}.fb.bad{background:var(--rdS);border-color:var(--rd)}
+.fb.info{background:var(--blS);border-color:var(--bl)}
+.fb .v{font-weight:750;margin-bottom:4px}
+.math{font-variant-numeric:tabular-nums;background:var(--dim);border-radius:10px;padding:11px 14px;margin:11px 0;font-size:.94rem}
+label{display:block;font-weight:650;margin:15px 0 5px}
+input,textarea{font:inherit;width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:var(--pan);color:var(--ink)}
+input:focus,textarea:focus{outline:none;border-color:var(--or)}
+textarea{min-height:86px;resize:vertical}
+input[type=range]{padding:0;accent-color:var(--or);border:none;background:transparent}
+.hint{color:var(--soft);font-size:.87rem;margin-top:5px}
+.ask{font-family:var(--serif);font-size:2.2rem;font-weight:600;font-variant-numeric:tabular-nums;text-align:center;margin:4px 0 2px;letter-spacing:-.02em}
+.track{position:relative;height:16px;border-radius:9px;background:var(--dim);overflow:hidden;margin:10px 0 4px}
+.zone{position:absolute;top:0;bottom:0}
+.zone.lose{background:var(--rdS);border-right:2px solid var(--rd)}
+.zone.safe{background:var(--tlS)}
+.zone.risk{background:repeating-linear-gradient(45deg,var(--dim),var(--dim) 5px,transparent 5px,transparent 10px)}
+.mk{position:absolute;top:-4px;width:3px;height:24px;background:var(--or);border-radius:2px}
+.gauge{display:flex;justify-content:space-between;font-size:.76rem;color:var(--soft);font-variant-numeric:tabular-nums}
+.row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.94rem}
+.row:last-child{border:none}
+.y{color:var(--tl);font-weight:750}.n{color:var(--rd);font-weight:750}
+.score{font-family:var(--serif);font-size:3.4rem;font-weight:600;letter-spacing:-.02em;line-height:1}
+.rank{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--tl)}
+.steps p{margin:.35em 0;font-size:.95rem}
+svg.chart{width:100%;height:auto;display:block;margin:6px 0 2px}
+.leg{display:flex;gap:16px;font-size:.82rem;color:var(--soft);justify-content:center;margin-top:2px}
+.leg i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+</style></head><body><div class="wrap">
+<div class="top"><div class="brandmark">ADVANTAGE <span>&#9679;</span> advisory practice</div>
+<div class="dots" id="dots"></div><div class="pts" id="pts"></div></div>
+<div id="app"></div></div>
+<script>
+const CASES=[
+{n:"Priya &amp; Theo",tier:"ind",icon:"\u{1F3E0}",role:"Roommates",
+ head:"Two roommates splitting the household work for a month.",
+ body:"Priya can cook 60 meals in a month or do 15 loads of laundry. Theo can cook 24 meals or do 48 loads. They currently split everything down the middle and both of them are miserable.",
+ a:"meals",b:"loads",au:"meals",bu:"loads",you:[60,15],them:[24,48],youN:"Priya",themN:"Theo"},
+
+{n:"Northside Printing",tier:"biz",icon:"\u{1F5A8}",role:"Small business",
+ head:"A print shop deciding whether to send work down the street.",
+ body:"Northside can produce 120 posters a day or 90 T-shirts. Southside, the smaller shop two blocks over, can produce 60 posters or 30 T-shirts. Northside's owner is certain she should keep everything in house.",
+ a:"posters",b:"T-shirts",au:"posters",bu:"shirts",you:[120,90],them:[60,30],youN:"Northside",themN:"Southside"},
+
+{n:"Halvorsen Group",tier:"biz",icon:"\u{1F4C8}",role:"Two departments",
+ head:"One firm, two teams, and a fight over who takes which work.",
+ body:"The Compliance team can close 80 audits a month or write 40 reports. The Analytics team can close 50 audits or write 50 reports. Both teams want the audits because audits get noticed.",
+ a:"audits",b:"reports",au:"audits",bu:"reports",you:[80,40],them:[50,50],youN:"Compliance",themN:"Analytics"},
+
+{n:"Town of Millbrook",tier:"gov",icon:"\u{1F3DB}",role:"Local government",
+ head:"A town of four thousand, negotiating shared services with its much larger neighbour.",
+ body:"Millbrook's public works crew can repave 30 miles of road a season or maintain 60 acres of park. Ridgeview, ten times the population, can do 90 miles or 90 acres. Millbrook's council assumes it has nothing to offer.",
+ a:"road miles",b:"park acres",au:"miles",bu:"acres",you:[30,60],them:[90,90],youN:"Millbrook",themN:"Ridgeview"},
+
+{n:"Corliss Motors",tier:"biz",icon:"\u{1F527}",role:"Manufacturing",
+ head:"A plant that beats its supplier at everything, wondering why it buys anything at all.",
+ body:"The Corliss plant can build 60 engines a month or 90 transmissions. Their supplier, Bell Components, can build 40 engines or 40 transmissions. Corliss is better at both and the CFO wants to cut Bell loose.",
+ a:"engines",b:"transmissions",au:"engines",bu:"transmissions",you:[60,90],them:[40,40],youN:"Corliss",themN:"Bell"},
+
+{n:"State of Vandalia",tier:"gov",icon:"\u{1F5FA}",role:"State economy",
+ head:"A state weighing an interstate compact with the region next door.",
+ body:"Vandalia can produce 100 thousand tons of steel a year or 20 thousand bushels of wheat. Coalridge can produce 50 thousand tons of steel or 40 thousand bushels of wheat. Vandalia's legislature wants to be self-sufficient in food.",
+ a:"steel",b:"wheat",au:"kt steel",bu:"kbu wheat",you:[100,20],them:[50,40],youN:"Vandalia",themN:"Coalridge"},
+
+{n:"Republic of Karela",tier:"nat",icon:"\u{1F30D}",role:"National economy",
+ head:"A trade deal, and a factory that arrives in the middle of the negotiation.",
+ body:"Karela can produce 45 million solar panels a year or 135 million tons of grain. Dunmar can produce 80 million of either. Karela has always been the farm and Dunmar has always been the factory.",
+ shock:[180,135],
+ shockText:"Mid-negotiation, Karela finishes a new manufacturing line. It can now produce 180 million panels a year instead of 45. Its farmland has not changed. Dunmar has not changed at all. Re-run the numbers before you advise anyone.",
+ a:"panels",b:"grain",au:"M panels",bu:"Mt grain",you:[45,135],them:[80,80],youN:"Karela",themN:"Dunmar"},
+
+{n:"Aldoria &amp; Bressia",tier:"nat",icon:"\u{2696}",role:"Trade negotiation",
+ head:"Your last file. Two economies that look almost identical on paper.",
+ body:"Aldoria can produce 60 thousand machines a year or 30 thousand tonnes of textiles. Bressia can produce 50 thousand machines or 35 thousand tonnes of textiles. The room to bargain here is thin, and both delegations know it.",
+ a:"machines",b:"textiles",au:"k machines",bu:"kt textiles",you:[60,30],them:[50,35],youN:"Aldoria",themN:"Bressia"}];
+
+const QS=[
+"Someone can be faster than everyone around them at every task and should still hand some of that work to somebody slower. Explain why, in terms of opportunity cost. Then apply it: how should this change the way a person picks a job, a major, or what to do with a Saturday?",
+"Two parties only reach a deal when the price lands between two particular numbers. Describe both numbers in your own words and explain why no agreement exists outside them. What does that tell you about why real trade has to be voluntary on both sides?",
+"A business or a country can lose a comparative advantage without getting any worse at anything it does. Explain how that is possible, and what it means for people whose work depends on that advantage.",
+"Specialisation and trade leave everyone holding more than they started with, even though nobody worked longer and nothing new was invented. Explain where the extra output actually comes from. Then explain why \"the country gained\" can be completely true and still be a poor answer to give someone who lost their job to it."];
+
+function walk(c,cc,t){
+ const getN=t.fg===c.a?cc.ya:cc.yb, giveN=t.fg===c.a?cc.yb:cc.ya;
+ return '<div class="fb info"><div class="v">How to land this every time</div><div class="steps">'+
+ '<p><strong>Step 1.</strong> Write both totals down. '+E(c.youN)+' can make <strong>'+getN+' '+E(t.fg)+
+  '</strong> with a season, <em>or</em> <strong>'+giveN+' '+E(t.tg)+'</strong>. Never both.</p>'+
+ '<p><strong>Step 2.</strong> The question asks what <em>one '+E(t.fg)+'</em> costs. So '+E(t.fg)+
+  ' is what you <em>get</em>, and '+E(t.tg)+' is what you <em>give up</em> to get it.</p>'+
+ '<p><strong>Step 3.</strong> What you give up goes on top: '+giveN+' &divide; '+getN+'.</p>'+
+ '<p><strong>Step 4.</strong> '+giveN+' &divide; '+getN+' = <strong>'+N(t.correct)+
+  '</strong>. One '+E(t.fg)+' costs '+N(t.correct)+' '+E(t.tg)+'.</p>'+
+ '<p><strong>Check yourself.</strong> Flip it: one '+E(t.tg)+' costs '+getN+' &divide; '+giveN+' = '+
+  N(getN/giveN)+' '+E(t.fg)+'. The two answers are always upside-down versions of each other. If yours are not, '+
+  'you divided the wrong way round.</p>'+
+ '<p><strong>The trap.</strong> It is the number on the bottom that names the good you are pricing. '+
+  'Pricing '+E(t.fg)+' means '+E(t.fg)+' goes on the bottom.</p></div></div>';}
+
+function calc(c,sh){const use=(sh&&c.shock)?c.shock:c.you,[ya,yb]=use,[ta,tb]=c.them;
+ const ocy=yb/ya,oct=tb/ta,ca=ocy<oct?"A":"B",Q=ca==="A"?Math.round(ya/3):Math.round(yb/3);
+ const floor=ca==="A"?Q*ocy:Q*(ya/yb),ceil=ca==="A"?Q*oct:Q*(ta/tb);
+ return{ya,yb,ta,tb,ocy,oct,ca,Q,floor,cap:Math.min(ceil,ca==="A"?tb:ta),
+  give:ca==="A"?c.a:c.b,giveU:ca==="A"?c.au:c.bu,want:ca==="A"?c.b:c.a,wantU:ca==="A"?c.bu:c.au,
+  makes:ca==="A"?ya:yb};}
+
+let S={name:"",hour:"",i:0,step:"brief",pts:0,log:[],refl:["","","",""],tmp:{}};
+const app=document.getElementById('app'),dotsEl=document.getElementById('dots'),ptsEl=document.getElementById('pts');
+const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const N=n=>(Math.round(n*100)/100).toString();
+function chrome(show){dotsEl.innerHTML=show?CASES.map((_,k)=>'<div class="dot '+(k<S.i?'done':k===S.i?'now':'')+'"></div>').join(''):'';
+ ptsEl.textContent=show?S.pts+" / 72":"";}
+
+function ppf(c,k,sh){const cc=calc(c,sh);
+ const W=560,H=300,L=52,R=16,T=14,B=42;
+ const mx=Math.max(cc.ya,cc.ta),my=Math.max(cc.yb,cc.tb);
+ const X=v=>L+(v/mx)*(W-L-R),Y=v=>H-B-(v/my)*(H-B-T);
+ let g='';
+ for(let i=0;i<=4;i++){const gx=L+i*(W-L-R)/4,gy=H-B-i*(H-B-T)/4;
+  g+='<line x1="'+gx+'" y1="'+T+'" x2="'+gx+'" y2="'+(H-B)+'" stroke="var(--line)" stroke-width="1"/>'+
+     '<line x1="'+L+'" y1="'+gy+'" x2="'+(W-R)+'" y2="'+gy+'" stroke="var(--line)" stroke-width="1"/>'+
+     '<text x="'+gx+'" y="'+(H-B+17)+'" text-anchor="middle" font-size="11" fill="var(--soft)">'+Math.round(mx*i/4)+'</text>'+
+     '<text x="'+(L-7)+'" y="'+(gy+4)+'" text-anchor="end" font-size="11" fill="var(--soft)">'+Math.round(my*i/4)+'</text>';}
+ g+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="var(--ink)" stroke-width="1.6"/>'+
+    '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="var(--ink)" stroke-width="1.6"/>'+
+    '<text x="'+((L+W-R)/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="12" fill="var(--soft)">'+E(c.au)+'</text>'+
+    '<text x="13" y="'+((T+H-B)/2)+'" text-anchor="middle" font-size="12" fill="var(--soft)" transform="rotate(-90 13 '+((T+H-B)/2)+')">'+E(c.bu)+'</text>';
+ const ln=(x1,y1,x2,y2,col)=>'<line x1="'+X(x1)+'" y1="'+Y(y1)+'" x2="'+X(x2)+'" y2="'+Y(y2)+'" stroke="'+col+'" stroke-width="3" stroke-linecap="round"/>'+
+   '<circle cx="'+X(x1)+'" cy="'+Y(y1)+'" r="4.5" fill="'+col+'"/><circle cx="'+X(x2)+'" cy="'+Y(y2)+'" r="4.5" fill="'+col+'"/>';
+ g+=ln(cc.ta,0,0,cc.tb,'var(--tl)')+ln(cc.ya,0,0,cc.yb,'var(--or)');
+ return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img">'+g+'</svg>'+
+  '<div class="leg"><span><i style="background:var(--or)"></i>'+E(c.youN)+'</span><span><i style="background:var(--tl)"></i>'+E(c.themN)+'</span></div>';}
+
+function boxes(c,cc,sh){return '<div class="prod"><div class="pb you"><div class="who">'+E(c.youN)+' &mdash; your client</div>'+
+ '<div class="nums">'+cc.ya+' '+E(c.a)+' <span style="color:var(--soft)">or</span> '+cc.yb+' '+E(c.b)+(sh&&c.shock?' <strong>(upgraded)</strong>':'')+'</div></div>'+
+ '<div class="pb them"><div class="who">'+E(c.themN)+'</div><div class="nums">'+cc.ta+' '+E(c.a)+' <span style="color:var(--soft)">or</span> '+cc.tb+' '+E(c.b)+'</div></div></div>';}
+
+function header(c){const t={ind:"Individual",biz:"Business",gov:"Government",nat:"National"}[c.tier];
+ return '<div class="client"><div class="avatar a-'+c.tier+'">'+c.icon+'</div><div>'+
+ '<div class="badge t-'+c.tier+'">'+t+' &middot; '+E(c.role)+'</div><h2>'+c.n+'</h2>'+
+ '<div style="color:var(--soft)">'+c.head+'</div></div></div>';}
+
+function start(){chrome(false);
+app.innerHTML='<h1>Advantage</h1><p class="sub">You are the economist. Eight clients, from two roommates to two countries, all with the same problem and none of them able to see it.</p>'+
+'<div class="panel"><p style="margin-top:0"><strong>Absolute advantage</strong> is producing more of something than someone else with the same resources. It is about output.</p>'+
+'<p><strong>Comparative advantage</strong> is producing something at a lower opportunity cost than someone else. It is about what you gave up.</p>'+
+'<p><strong>Opportunity cost</strong> is the value of the next best thing you did not choose.</p>'+
+'<div class="math"><strong>The one calculation, every time</strong><br>what you give up &divide; what you get<br><br>'+
+'A bakery makes 12 loaves or 4 cakes an hour. One loaf costs 4 &divide; 12 = a third of a cake. One cake costs 12 &divide; 4 = 3 loaves.</div>'+
+'<p style="margin-bottom:0">Each file: read the frontier, work the cost, recommend who produces what, then negotiate the terms. Nine points a case.</p></div>'+
+'<label for="nm">Your name</label><input id="nm" placeholder="First and last">'+
+'<label for="hr">Class hour</label><input id="hr" placeholder="e.g. 3rd hour">'+
+'<div class="btns"><button id="go" disabled>Open the first file</button></div>';
+const nm=document.getElementById('nm'),hr=document.getElementById('hr'),go=document.getElementById('go');
+const ck=()=>go.disabled=!(nm.value.trim()&&hr.value.trim());nm.oninput=ck;hr.oninput=ck;
+go.onclick=()=>{S.name=nm.value.trim();S.hour=hr.value.trim();S.i=0;S.step="brief";S.pts=0;S.log=[];play();};}
+
+function play(){const c=CASES[S.i],sh=S.step!=="brief",cc=calc(c,sh);chrome(true);
+const L=S.log[S.i]||(S.log[S.i]={aaOK:null,mathOK:null,tries:0,specOK:null,spec:null,trade:"",tPts:0,scout:false});
+
+if(S.step==="brief"){app.innerHTML='<div class="panel">'+header(c)+'<p>'+c.body+'</p>'+boxes(c,calc(c,false),false)+
+ ppf(c,S.i,false)+'<p class="hint" style="text-align:center">Each line is every combination that client could produce. Where the lines differ in steepness, there is a deal.</p></div>'+
+ (c.shock?'<div class="fb info"><div class="v">Development</div>'+c.shockText+'</div>':'')+
+ '<div class="btns"><button id="n">'+(c.shock?"Re-run the numbers":"Start the analysis")+'</button></div>';
+ document.getElementById('n').onclick=()=>{S.step="math";play();};return;}
+
+if(S.step==="math"){const cln=x=>Math.abs(x*100-Math.round(x*100))<1e-6;const askA=cln(cc.ocy)?true:(cln(cc.ya/cc.yb)?false:cc.ocy<=cc.oct),fg=askA?c.a:c.b,tg=askA?c.b:c.a;
+ S.tmp={correct:askA?cc.ocy:(cc.ya/cc.yb),fg:fg,tg:tg};
+ app.innerHTML='<div class="panel">'+header(c)+boxes(c,cc,sh)+'</div>'+
+ '<div class="panel"><h2 style="font-size:1.1rem">Question 1 &mdash; who produces more?</h2>'+
+ '<p class="hint" style="margin-top:0">Raw output only. This is the absolute advantage question.</p>'+
+ '<div class="btns"><button class="pick wide" data-aa="you">'+E(c.youN)+' makes more '+E(c.a)+'</button>'+
+ '<button class="pick wide" data-aa="them">'+E(c.themN)+' makes more '+E(c.a)+'</button></div>'+
+ '<label for="mi">Question 2 &mdash; one '+E(fg)+' costs '+E(c.youN)+' how many '+E(tg)+'?</label>'+
+ '<input id="mi" inputmode="decimal" placeholder="a number, decimals fine" disabled>'+
+ '<p class="hint" id="mh">Answer question 1 first.</p>'+
+ '<div class="btns"><button id="sub" disabled>Submit analysis</button></div></div>';
+ let aa=null;
+ app.querySelectorAll('[data-aa]').forEach(b=>b.onclick=()=>{
+  aa=b.dataset.aa;app.querySelectorAll('[data-aa]').forEach(x=>x.style.borderColor="var(--line)");
+  b.style.borderColor="var(--or)";document.getElementById('mi').disabled=false;
+  document.getElementById('mh').textContent="Divide what they give up by what they get.";
+  document.getElementById('sub').disabled=false;});
+ document.getElementById('sub').onclick=()=>{
+  const v=parseFloat(document.getElementById('mi').value);
+  if(!isFinite(v))return;
+  if(L.aaOK===null){L.aaOK=(aa==="you")===(cc.ya>cc.ta);if(L.aaOK)S.pts+=1;}
+  const ok=Math.abs(v-S.tmp.correct)<0.035;L.tries++;
+  if(ok){L.mathOK=L.tries===1;S.pts+=L.tries===1?2:1;S.step="mathFB";play();}
+  else if(L.tries===1){document.getElementById('mi').value="";
+   document.getElementById('mh').innerHTML='<strong>Not it.</strong> '+E(c.youN)+' makes '+cc.ya+' '+E(c.a)+' or '+cc.yb+' '+E(c.b)+
+    '. Put what they give up on top. One more try, worth 1 point.';}
+  else{L.mathOK=false;S.step="mathFB";play();}};return;}
+
+if(S.step==="mathFB"){const t=S.tmp;
+ app.innerHTML='<div class="panel">'+header(c)+
+ '<div class="fb '+(L.aaOK?'good':'bad')+'"><div class="v">Absolute advantage: '+(L.aaOK?"correct":"missed")+'</div>'+
+  (cc.ya>cc.ta?E(c.youN):E(c.themN))+' produces more '+E(c.a)+' &mdash; '+Math.max(cc.ya,cc.ta)+' against '+Math.min(cc.ya,cc.ta)+
+  '. Useful to know and, on its own, not advice.</div>'+
+ '<div class="fb '+(L.mathOK!==false?'good':'bad')+'"><div class="v">Opportunity cost: '+
+  (L.mathOK===true?"correct, first try":L.mathOK===false?"the answer was "+N(t.correct):"correct on the second try")+'</div>'+
+  'One '+E(t.fg)+' costs '+E(c.youN)+' '+N(t.correct)+' '+E(t.tg)+'. That is the number the whole file turns on.</div>'+
+ (L.mathOK===true?'':walk(c,cc,t))+
+ '<div class="math">'+E(c.youN)+': 1 '+E(t.fg)+' = '+N(t.correct)+' '+E(t.tg)+'<br>'+
+  E(c.themN)+': 1 '+E(t.fg)+' = '+N(t.fg===c.a?cc.oct:(cc.ta/cc.tb))+' '+E(t.tg)+'</div></div>'+
+ '<div class="btns"><button id="n">Make the recommendation</button></div>';
+ document.getElementById('n').onclick=()=>{S.step="spec";play();};return;}
+
+if(S.step==="spec"){app.innerHTML='<div class="panel">'+header(c)+
+ '<div class="math">'+E(c.youN)+' gives up '+N(cc.ocy)+' '+E(c.b)+' per '+E(c.a)+'.<br>'+
+  E(c.themN)+' gives up '+N(cc.oct)+'.</div>'+
+ '<p><strong>What do you tell '+E(c.youN)+' to produce?</strong></p>'+
+ '<div class="btns"><button class="wide" data-p="A">All '+E(c.a)+'</button>'+
+ '<button class="wide" data-p="B">All '+E(c.b)+'</button></div></div>';
+ app.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{L.spec=b.dataset.p;L.specOK=b.dataset.p===cc.ca;
+  if(L.specOK)S.pts+=2;S.step="specFB";play();});return;}
+
+if(S.step==="specFB"){const mine=cc.ca==="A"?c.a:c.b;
+ app.innerHTML='<div class="panel">'+header(c)+'<div class="fb '+(L.specOK?'good':'bad')+'">'+
+ '<div class="v">'+(L.specOK?"Sound advice &mdash; "+E(mine)+".":"They should produce "+E(mine)+".")+'</div>'+
+ E(c.youN)+' gives up '+N(cc.ocy)+' and '+E(c.themN)+' gives up '+N(cc.oct)+' for the same thing. Whoever gives up less should make it. '+
+ (cc.ya>cc.ta&&cc.yb>cc.tb?'<br><br>Note for the file: your client out-produces them at <em>both</em> goods and it changes nothing. Producing more is not the same as giving up less.':
+  cc.ta>cc.ya&&cc.tb>cc.yb?'<br><br>Note for the file: they are beaten at both goods and still hold something worth buying.':'')+
+ '</div></div><div class="btns"><button id="n">Negotiate terms</button></div>';
+ document.getElementById('n').onclick=()=>{S.step="trade";play();};return;}
+
+if(S.step==="trade"){const lo=Math.max(0,Math.floor(cc.floor*0.55)),hi=Math.ceil(cc.cap*1.45);
+ const st=(hi-lo)<=25?0.5:1,v0=Math.round(((lo+hi)/2)/st)*st;
+ const pc=x=>((x-lo)/(hi-lo))*100;
+ app.innerHTML='<div class="panel">'+header(c)+
+ '<p style="margin-top:0">'+E(c.youN)+' produced <strong>'+cc.makes+' '+E(cc.giveU)+'</strong> and is offering '+E(c.themN)+
+  ' <strong>'+cc.Q+' '+E(cc.giveU)+'</strong>, to be paid in '+E(cc.want)+'.</p>'+
+ '<div class="math">Producing those '+cc.Q+' '+E(cc.giveU)+' cost your client '+N(cc.floor)+' '+E(cc.wantU)+
+  ' of output they did not make. Settle at or below that and you have advised them into a loss.<br>'+
+  E(c.themN)+' will not pay more than building it themselves would cost. You do not know that number yet.</div>'+
+ '<div class="ask" id="av">'+N(v0)+' <span style="font-size:.9rem;font-weight:600;color:var(--soft)">'+E(cc.wantU)+'</span></div>'+
+ '<div class="track"><div class="zone lose" style="left:0;width:'+pc(cc.floor)+'%"></div>'+
+  '<div class="zone risk" style="left:'+pc(cc.floor)+'%;right:0"></div>'+
+  '<div class="mk" id="mk" style="left:'+pc(v0)+'%"></div></div>'+
+ '<div class="gauge"><span>a loss for your client</span><span>profit, then refusal &mdash; somewhere</span></div>'+
+ '<input type="range" id="sl" min="'+lo+'" max="'+hi+'" step="'+st+'" value="'+v0+'">'+
+ '<div class="btns"><button id="of">Table the offer</button>'+
+ (L.scout?'':'<button id="sc" class="ghost small">Commission a cost study (\u22121 point)</button>')+'</div>'+
+ '<p class="hint" id="sh"></p></div>';
+ const sl=document.getElementById('sl'),av=document.getElementById('av'),mk=document.getElementById('mk');
+ sl.oninput=()=>{av.innerHTML=N(parseFloat(sl.value))+' <span style="font-size:.9rem;font-weight:600;color:var(--soft)">'+cc.wantU+'</span>';
+  mk.style.left=pc(parseFloat(sl.value))+'%';};
+ if(!L.scout)document.getElementById('sc').onclick=()=>{L.scout=true;S.pts=Math.max(0,S.pts-1);chrome(true);
+  document.getElementById('sc').remove();
+  document.getElementById('sh').innerHTML='<strong>Study returns:</strong> producing '+cc.Q+' '+E(cc.giveU)+' in house would cost '+
+   E(c.themN)+' about '+N(cc.cap)+' '+E(cc.wantU)+'. They will not sign above it.';};
+ document.getElementById('of').onclick=()=>{const ask=parseFloat(sl.value);S.tmp.ask=ask;
+  if(ask>cc.cap){L.trade="refused";S.step=L.retried?"tradeFB":"retry";play();}
+  else if(ask<=cc.floor){L.trade="undersold";L.tPts=L.retried?0:1;S.pts+=L.tPts;S.step="tradeFB";play();}
+  else{const f=(ask-cc.floor)/(cc.cap-cc.floor);let p=f>0.8?4:f>0.55?3:f>0.3?2:1;
+   if(L.retried)p=Math.min(p,2);L.trade="signed at "+N(ask);L.tPts=p;S.pts+=p;S.step="tradeFB";play();}};return;}
+
+if(S.step==="retry"){app.innerHTML='<div class="panel">'+header(c)+
+ '<div class="fb bad"><div class="v">'+E(c.themN)+' walked.</div>You asked '+N(S.tmp.ask)+' '+E(cc.wantU)+
+ ' for '+cc.Q+' '+E(cc.giveU)+'. They can produce that in house for less, so your price bought them nothing.</div>'+
+ '<p>You get one more offer on this file. Best case now, 2 points.</p></div>'+
+ '<div class="btns"><button id="n">Revise the offer</button></div>';
+ document.getElementById('n').onclick=()=>{L.retried=true;S.step="trade";play();};return;}
+
+const last=S.i===CASES.length-1,ok=L.trade.indexOf("signed")===0;
+const caseP=(L.aaOK?1:0)+(L.mathOK===true?2:L.mathOK===false?0:1)+(L.specOK?2:0)+L.tPts-(L.scout?1:0);
+app.innerHTML='<div class="panel">'+header(c)+
+'<div class="fb '+(ok?'good':'bad')+'"><div class="v">'+
+ (ok?"Signed &mdash; "+L.tPts+" of 4 on terms.":L.trade==="undersold"?"They signed before you finished speaking.":"No agreement.")+'</div>'+
+ (ok?'Your client gave '+cc.Q+' '+E(cc.giveU)+' and received '+N(S.tmp.ask)+' '+E(cc.wantU)+
+   '. Their own cost was '+N(cc.floor)+'; '+E(c.themN)+"'s limit was "+N(cc.cap)+'. Everything between those two numbers was on the table.'
+  :L.trade==="undersold"?'You settled at '+N(S.tmp.ask)+', and producing it had already cost your client '+N(cc.floor)+
+   '. At or below their own cost, the deal destroys value.'
+  :'Their ceiling was '+N(cc.cap)+' '+E(cc.wantU)+'. Above it they build it themselves and you get nothing.')+'</div>'+
+'<div class="row"><span>Absolute advantage</span><span class="'+(L.aaOK?'y':'n')+'">'+(L.aaOK?'1':'0')+' / 1</span></div>'+
+'<div class="row"><span>Opportunity cost</span><span class="'+(L.mathOK===true?'y':L.mathOK===false?'n':'')+'">'+(L.mathOK===true?2:L.mathOK===false?0:1)+' / 2</span></div>'+
+'<div class="row"><span>Recommendation</span><span class="'+(L.specOK?'y':'n')+'">'+(L.specOK?'2':'0')+' / 2</span></div>'+
+'<div class="row"><span>Terms negotiated</span><span class="'+(L.tPts>2?'y':L.tPts?'':'n')+'">'+L.tPts+' / 4</span></div>'+
+(L.scout?'<div class="row"><span>Cost study commissioned</span><span class="n">&minus;1</span></div>':'')+
+'<div class="row"><strong>File total</strong><strong>'+caseP+' &mdash; running '+S.pts+'</strong></div></div>'+
+'<div class="btns"><button id="n">'+(last?"Close the practice":"Next file")+'</button></div>';
+document.getElementById('n').onclick=()=>{if(last){reflect();}else{S.i++;S.step="brief";play();}};}
+
+function rank(p){return p>=63?"Chief Economist":p>=50?"Senior Advisor":p>=36?"Associate":"Junior Analyst";}
+
+function reflect(){chrome(false);
+app.innerHTML='<div class="score">'+S.pts+' <span style="font-size:1.3rem;color:var(--soft);font-weight:600">of 72</span></div>'+
+'<div class="rank">'+rank(S.pts)+'</div><p class="sub" style="margin-top:8px">Four questions. All four need real answers before the download unlocks.</p>'+
+QS.map((q,i)=>'<label for="q'+i+'">'+(i+1)+'. '+E(q)+'</label><textarea id="q'+i+'">'+E(S.refl[i])+'</textarea>').join('')+
+'<div class="btns" style="margin-top:18px"><button id="dl" disabled>Download my PDF</button></div>'+
+'<p class="hint" id="w">Each answer needs at least a sentence.</p>';
+const dl=document.getElementById('dl'),w=document.getElementById('w');
+const ck=()=>{QS.forEach((_,i)=>S.refl[i]=document.getElementById('q'+i).value);
+ const d=S.refl.every(t=>t.trim().length>=40);dl.disabled=!d;
+ w.textContent=d?"Ready. Download it, then upload the PDF to Canvas.":"Each answer needs at least a sentence.";};
+QS.forEach((_,i)=>document.getElementById('q'+i).oninput=ck);ck();dl.onclick=pdf;}
+
+function wr(t,m){const o=[];String(t).split(/\n+/).forEach(p=>{let l="";
+ p.split(/\s+/).filter(Boolean).forEach(x=>{if((l+" "+x).trim().length>m){o.push(l.trim());l=x;}else l+=" "+x;});o.push(l.trim());});
+ return o.length?o:[""];}
+function pe(s){return String(s).replace(/&amp;/g,'&').replace(/&mdash;/g,'-').replace(/&middot;/g,'-')
+ .replace(/[^\x20-\x7E]/g,c=>({'\u2014':'-','\u2019':"'",'\u201c':'"','\u201d':'"','\u2018':"'",'\u2013':'-'}[c]||'?'))
+ .replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');}
+function pdf(){const L=[],A=(t,o={})=>L.push({t:t,b:!!o.b,s:o.s||11,gap:o.gap||0});
+ A("Advantage - Advisory Practice Record",{b:1,s:17});
+ A("Absolute and Comparative Advantage",{gap:6});
+ A("Name: "+S.name+"        Class hour: "+S.hour,{b:1,gap:2});
+ A("Completed: "+new Date().toLocaleDateString(),{gap:10});
+ A("RESULT",{b:1,s:13,gap:4});
+ A("Final score: "+S.pts+" of 72   ("+rank(S.pts)+")",{b:1,gap:6});
+ CASES.forEach((c,i)=>{const l=S.log[i]||{},cc=calc(c,true);
+  A("File "+(i+1)+" - "+c.n.replace(/&amp;/g,'&')+"  ["+{ind:"individual",biz:"business",gov:"government",nat:"national"}[c.tier]+"]",{b:1});
+  A("   Absolute advantage: "+(l.aaOK?"correct":"missed")+"    Opportunity cost: "+
+    (l.mathOK===true?"correct, first try":l.mathOK===false?"missed":"correct, second try"));
+  A("   Advised: "+(l.spec==="A"?c.a:c.b)+"  ("+(l.specOK?"correct":"should have been "+(cc.ca==="A"?c.a:c.b))+")");
+  A("   Terms: "+(l.trade||"-")+"  ("+(l.tPts||0)+" of 4)"+(l.scout?"  [cost study used]":""),{gap:4});});
+ L.push({t:"",s:11,gap:10});A("REFLECTION",{b:1,s:13,gap:4});
+ QS.forEach((q,i)=>{wr((i+1)+". "+q,88).forEach(x=>A(x,{b:1,s:10.5}));
+  wr(S.refl[i],92).forEach(x=>A(x));L.push({t:"",s:11,gap:9});});
+ const pg=[];let cur=[],y=0;
+ L.forEach(it=>{const h=(it.t===""?0:it.s+4)+it.gap;if(y+h>640&&it.t!==""){pg.push(cur);cur=[];y=0;}cur.push(it);y+=h;});
+ if(cur.length)pg.push(cur);
+ const str=pg.map(items=>{let y=742,o="";items.forEach(it=>{y-=it.gap;if(it.t!==""){y-=(it.s+4);
+  o+="BT /"+(it.b?"F2":"F1")+" "+it.s+" Tf 1 0 0 1 56 "+y.toFixed(1)+" Tm ("+pe(it.t)+") Tj ET\n";}});return o;});
+ const n=pg.length,ob=[];
+ ob.push("<</Type/Catalog/Pages 2 0 R>>");
+ ob.push("<</Type/Pages/Kids["+pg.map((_,i)=>(3+i)+" 0 R").join(" ")+"]/Count "+n+">>");
+ pg.forEach((_,i)=>ob.push("<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]/Contents "+(3+n+i)+" 0 R/Resources<</Font<</F1 "+(3+2*n)+" 0 R/F2 "+(4+2*n)+" 0 R>>>>>>"));
+ str.forEach(s=>ob.push("<</Length "+s.length+">>\nstream\n"+s+"endstream"));
+ ob.push("<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Encoding/WinAnsiEncoding>>");
+ ob.push("<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding>>");
+ let p="%PDF-1.4\n";const of=[];
+ ob.forEach((o,i)=>{of.push(p.length);p+=(i+1)+" 0 obj\n"+o+"\nendobj\n";});
+ const xr=p.length;p+="xref\n0 "+(ob.length+1)+"\n0000000000 65535 f \n";
+ of.forEach(o=>p+=String(o).padStart(10,"0")+" 00000 n \n");
+ p+="trailer\n<</Size "+(ob.length+1)+"/Root 1 0 R>>\nstartxref\n"+xr+"\n%%EOF";
+ const by=new Uint8Array(p.length);for(let i=0;i<p.length;i++)by[i]=p.charCodeAt(i)&0xFF;
+ const u=URL.createObjectURL(new Blob([by],{type:"application/pdf"}));
+ const a=document.createElement('a');a.href=u;a.download="Advantage - "+S.name.replace(/[^A-Za-z0-9 ]/g,"")+".pdf";
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);
+ document.getElementById('w').textContent="Downloaded. Upload that PDF to Canvas.";}
+start();
+</script></body></html>
