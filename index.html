@@ -74,6 +74,13 @@ input[type=range]{padding:0;accent-color:var(--or);border:none;background:transp
 .score{font-family:var(--serif);font-size:3.4rem;font-weight:600;letter-spacing:-.02em;line-height:1}
 .rank{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:var(--tl)}
 .steps p{margin:.35em 0;font-size:.95rem}
+.cmp{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.cmp:last-child{border:none}
+.cg{flex:1 1 160px;color:var(--soft);font-size:.9rem}
+.cv{font-variant-numeric:tabular-nums;padding:2px 9px;border-radius:7px}
+.cv.win{font-weight:750;color:var(--tl);background:var(--tlS)}
+.cv.lose{color:var(--soft)}
+.cheap{font-size:.78rem;color:var(--tl);font-weight:700;letter-spacing:.04em}
 svg.chart{width:100%;height:auto;display:block;margin:6px 0 2px}
 .leg{display:flex;gap:16px;font-size:.82rem;color:var(--soft);justify-content:center;margin-top:2px}
 .leg i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
@@ -86,44 +93,44 @@ const CASES=[
 {n:"Priya &amp; Theo",tier:"ind",icon:"\u{1F3E0}",role:"Roommates",
  head:"Two roommates splitting the household work for a month.",
  body:"Priya can cook 60 meals in a month or do 15 loads of laundry. Theo can cook 24 meals or do 48 loads. They currently split everything down the middle and both of them are miserable.",
- a:"meals",b:"loads",au:"meals",bu:"loads",you:[60,15],them:[24,48],youN:"Priya",themN:"Theo"},
+ a:"meals",b:"loads",as1:"meal",bs1:"load of laundry",au:"meals",bu:"loads",you:[60,15],them:[24,48],youN:"Priya",themN:"Theo"},
 
 {n:"Northside Printing",tier:"biz",icon:"\u{1F5A8}",role:"Small business",
  head:"A print shop deciding whether to send work down the street.",
  body:"Northside can produce 120 posters a day or 90 T-shirts. Southside, the smaller shop two blocks over, can produce 60 posters or 30 T-shirts. Northside's owner is certain she should keep everything in house.",
- a:"posters",b:"T-shirts",au:"posters",bu:"shirts",you:[120,90],them:[60,30],youN:"Northside",themN:"Southside"},
+ a:"posters",b:"T-shirts",as1:"poster",bs1:"T-shirt",au:"posters",bu:"shirts",you:[120,90],them:[60,30],youN:"Northside",themN:"Southside"},
 
 {n:"Halvorsen Group",tier:"biz",icon:"\u{1F4C8}",role:"Two departments",
  head:"One firm, two teams, and a fight over who takes which work.",
  body:"The Compliance team can close 80 audits a month or write 40 reports. The Analytics team can close 50 audits or write 50 reports. Both teams want the audits because audits get noticed.",
- a:"audits",b:"reports",au:"audits",bu:"reports",you:[80,40],them:[50,50],youN:"Compliance",themN:"Analytics"},
+ a:"audits",b:"reports",as1:"audit",bs1:"report",au:"audits",bu:"reports",you:[80,40],them:[50,50],youN:"Compliance",themN:"Analytics"},
 
 {n:"Town of Millbrook",tier:"gov",icon:"\u{1F3DB}",role:"Local government",
  head:"A town of four thousand, negotiating shared services with its much larger neighbour.",
  body:"Millbrook's public works crew can repave 30 miles of road a season or maintain 60 acres of park. Ridgeview, ten times the population, can do 90 miles or 90 acres. Millbrook's council assumes it has nothing to offer.",
- a:"road miles",b:"park acres",au:"miles",bu:"acres",you:[30,60],them:[90,90],youN:"Millbrook",themN:"Ridgeview"},
+ a:"road miles",b:"park acres",as1:"mile of road",bs1:"acre of parkland",au:"miles",bu:"acres",you:[30,60],them:[90,90],youN:"Millbrook",themN:"Ridgeview"},
 
 {n:"Corliss Motors",tier:"biz",icon:"\u{1F527}",role:"Manufacturing",
  head:"A plant that beats its supplier at everything, wondering why it buys anything at all.",
  body:"The Corliss plant can build 60 engines a month or 90 transmissions. Their supplier, Bell Components, can build 40 engines or 40 transmissions. Corliss is better at both and the CFO wants to cut Bell loose.",
- a:"engines",b:"transmissions",au:"engines",bu:"transmissions",you:[60,90],them:[40,40],youN:"Corliss",themN:"Bell"},
+ a:"engines",b:"transmissions",as1:"engine",bs1:"transmission",au:"engines",bu:"transmissions",you:[60,90],them:[40,40],youN:"Corliss",themN:"Bell"},
 
 {n:"State of Vandalia",tier:"gov",icon:"\u{1F5FA}",role:"State economy",
  head:"A state weighing an interstate compact with the region next door.",
- body:"Vandalia can produce 100 thousand tons of steel a year or 20 thousand bushels of wheat. Coalridge can produce 50 thousand tons of steel or 40 thousand bushels of wheat. Vandalia's legislature wants to be self-sufficient in food.",
- a:"steel",b:"wheat",au:"kt steel",bu:"kbu wheat",you:[100,20],them:[50,40],youN:"Vandalia",themN:"Coalridge"},
+ body:"Vandalia can produce 100 tonnes of steel a year or 20 bushels of wheat. Coalridge can produce 50 tonnes of steel or 40 bushels of wheat. Vandalia's legislature wants to be self-sufficient in food.",
+ a:"steel",b:"wheat",as1:"tonne of steel",bs1:"bushel of wheat",au:"tonnes of steel",bu:"bushels of wheat",you:[100,20],them:[50,40],youN:"Vandalia",themN:"Coalridge"},
 
 {n:"Republic of Karela",tier:"nat",icon:"\u{1F30D}",role:"National economy",
  head:"A trade deal, and a factory that arrives in the middle of the negotiation.",
- body:"Karela can produce 45 million solar panels a year or 135 million tons of grain. Dunmar can produce 80 million of either. Karela has always been the farm and Dunmar has always been the factory.",
+ body:"Karela can produce 45 solar panels a year or 135 tonnes of grain. Dunmar can produce 80 of either. Karela has always been the farm and Dunmar has always been the factory.",
  shock:[180,135],
- shockText:"Mid-negotiation, Karela finishes a new manufacturing line. It can now produce 180 million panels a year instead of 45. Its farmland has not changed. Dunmar has not changed at all. Re-run the numbers before you advise anyone.",
- a:"panels",b:"grain",au:"M panels",bu:"Mt grain",you:[45,135],them:[80,80],youN:"Karela",themN:"Dunmar"},
+ shockText:"Mid-negotiation, Karela finishes a new manufacturing line. It can now produce 180 panels a year instead of 45. Its farmland has not changed. Dunmar has not changed at all. Re-run the numbers before you advise anyone.",
+ a:"panels",b:"grain",as1:"solar panel",bs1:"tonne of grain",au:"solar panels",bu:"tonnes of grain",you:[45,135],them:[80,80],youN:"Karela",themN:"Dunmar"},
 
 {n:"Aldoria &amp; Bressia",tier:"nat",icon:"\u{2696}",role:"Trade negotiation",
  head:"Your last file. Two economies that look almost identical on paper.",
- body:"Aldoria can produce 60 thousand machines a year or 30 thousand tonnes of textiles. Bressia can produce 50 thousand machines or 35 thousand tonnes of textiles. The room to bargain here is thin, and both delegations know it.",
- a:"machines",b:"textiles",au:"k machines",bu:"kt textiles",you:[60,30],them:[50,35],youN:"Aldoria",themN:"Bressia"}];
+ body:"Aldoria can produce 60 machines a year or 30 tonnes of textiles. Bressia can produce 50 machines or 35 tonnes of textiles. The room to bargain here is thin, and both delegations know it.",
+ a:"machines",b:"textiles",as1:"machine",bs1:"tonne of textiles",au:"machines",bu:"tonnes of textiles",you:[60,30],them:[50,35],youN:"Aldoria",themN:"Bressia"}];
 
 const QS=[
 "Someone can be faster than everyone around them at every task and should still hand some of that work to somebody slower. Explain why, in terms of opportunity cost. Then apply it: how should this change the way a person picks a job, a major, or what to do with a Saturday?",
@@ -131,21 +138,31 @@ const QS=[
 "A business or a country can lose a comparative advantage without getting any worse at anything it does. Explain how that is possible, and what it means for people whose work depends on that advantage.",
 "Specialisation and trade leave everyone holding more than they started with, even though nobody worked longer and nothing new was invented. Explain where the extra output actually comes from. Then explain why \"the country gained\" can be completely true and still be a poor answer to give someone who lost their job to it."];
 
+function parseNum(raw){
+ let s=String(raw).trim().toLowerCase();
+ if(!s)return NaN;
+ s=s.replace(/\u00bd/g,"0.5").replace(/\u00bc/g,"0.25").replace(/\u00be/g,"0.75").replace(/\u2153/g,"0.333").replace(/\u2154/g,"0.667");
+ s=s.replace(/,/g,".").replace(/\s+/g," ");
+ const f=s.match(/^(\d*\.?\d+)\s*\/\s*(\d*\.?\d+)/);
+ if(f){const a=parseFloat(f[1]),b=parseFloat(f[2]);if(b)return a/b;}
+ const m=s.match(/\d*\.?\d+/);
+ return m?parseFloat(m[0]):NaN;}
+
 function walk(c,cc,t){
  const getN=t.fg===c.a?cc.ya:cc.yb, giveN=t.fg===c.a?cc.yb:cc.ya;
  return '<div class="fb info"><div class="v">How to land this every time</div><div class="steps">'+
  '<p><strong>Step 1.</strong> Write both totals down. '+E(c.youN)+' can make <strong>'+getN+' '+E(t.fg)+
-  '</strong> with a season, <em>or</em> <strong>'+giveN+' '+E(t.tg)+'</strong>. Never both.</p>'+
- '<p><strong>Step 2.</strong> The question asks what <em>one '+E(t.fg)+'</em> costs. So '+E(t.fg)+
-  ' is what you <em>get</em>, and '+E(t.tg)+' is what you <em>give up</em> to get it.</p>'+
+  '</strong> in one period, <em>or</em> <strong>'+giveN+' '+E(t.tgu)+'</strong>. Never both.</p>'+
+ '<p><strong>Step 2.</strong> The question asks what <em>one '+E(t.fgs)+'</em> costs. So '+E(t.fg)+
+  ' is what you <em>get</em>, and '+E(t.tgu)+' is what you <em>give up</em> to get it.</p>'+
  '<p><strong>Step 3.</strong> What you give up goes on top: '+giveN+' &divide; '+getN+'.</p>'+
  '<p><strong>Step 4.</strong> '+giveN+' &divide; '+getN+' = <strong>'+N(t.correct)+
-  '</strong>. One '+E(t.fg)+' costs '+N(t.correct)+' '+E(t.tg)+'.</p>'+
- '<p><strong>Check yourself.</strong> Flip it: one '+E(t.tg)+' costs '+getN+' &divide; '+giveN+' = '+
+  '</strong>. One '+E(t.fgs)+' costs '+N(t.correct)+' '+E(t.tgu)+'.</p>'+
+ '<p><strong>Check yourself.</strong> Flip it: one '+E(t.tg.replace(/s$/,''))+' costs '+getN+' &divide; '+giveN+' = '+
   N(getN/giveN)+' '+E(t.fg)+'. The two answers are always upside-down versions of each other. If yours are not, '+
   'you divided the wrong way round.</p>'+
- '<p><strong>The trap.</strong> It is the number on the bottom that names the good you are pricing. '+
-  'Pricing '+E(t.fg)+' means '+E(t.fg)+' goes on the bottom.</p></div></div>';}
+ '<p><strong>The trap.</strong> The number on the bottom names the good you are pricing. '+
+  'Pricing one '+E(t.fgs)+' means '+E(t.fg)+' goes on the bottom.</p></div></div>';}
 
 function calc(c,sh){const use=(sh&&c.shock)?c.shock:c.you,[ya,yb]=use,[ta,tb]=c.them;
  const ocy=yb/ya,oct=tb/ta,ca=ocy<oct?"A":"B",Q=ca==="A"?Math.round(ya/3):Math.round(yb/3);
@@ -154,12 +171,17 @@ function calc(c,sh){const use=(sh&&c.shock)?c.shock:c.you,[ya,yb]=use,[ta,tb]=c.
   give:ca==="A"?c.a:c.b,giveU:ca==="A"?c.au:c.bu,want:ca==="A"?c.b:c.a,wantU:ca==="A"?c.bu:c.au,
   makes:ca==="A"?ya:yb};}
 
-let S={name:"",hour:"",i:0,step:"brief",pts:0,log:[],refl:["","","",""],tmp:{}};
+let S={name:"",hour:"",i:0,step:"brief",log:[],refl:["","","",""],tmp:{}};
+const KEY="advantage.progress.v1";
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function wipe(){try{localStorage.removeItem(KEY);}catch(e){}}
+function stored(){try{const r=localStorage.getItem(KEY);if(!r)return null;const o=JSON.parse(r);
+ return(o&&o.name&&(o.i>0||o.step!=="brief"))?o:null;}catch(e){return null;}}
 const app=document.getElementById('app'),dotsEl=document.getElementById('dots'),ptsEl=document.getElementById('pts');
 const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const N=n=>(Math.round(n*100)/100).toString();
 function chrome(show){dotsEl.innerHTML=show?CASES.map((_,k)=>'<div class="dot '+(k<S.i?'done':k===S.i?'now':'')+'"></div>').join(''):'';
- ptsEl.textContent=show?S.pts+" / 72":"";}
+ ptsEl.textContent=show?("File "+(S.i+1)+" of "+CASES.length):"";}
 
 function ppf(c,k,sh){const cc=calc(c,sh);
  const W=560,H=300,L=52,R=16,T=14,B=42;
@@ -182,8 +204,8 @@ function ppf(c,k,sh){const cc=calc(c,sh);
   '<div class="leg"><span><i style="background:var(--or)"></i>'+E(c.youN)+'</span><span><i style="background:var(--tl)"></i>'+E(c.themN)+'</span></div>';}
 
 function boxes(c,cc,sh){return '<div class="prod"><div class="pb you"><div class="who">'+E(c.youN)+' &mdash; your client</div>'+
- '<div class="nums">'+cc.ya+' '+E(c.a)+' <span style="color:var(--soft)">or</span> '+cc.yb+' '+E(c.b)+(sh&&c.shock?' <strong>(upgraded)</strong>':'')+'</div></div>'+
- '<div class="pb them"><div class="who">'+E(c.themN)+'</div><div class="nums">'+cc.ta+' '+E(c.a)+' <span style="color:var(--soft)">or</span> '+cc.tb+' '+E(c.b)+'</div></div></div>';}
+ '<div class="nums">'+cc.ya+' '+E(c.au)+' <span style="color:var(--soft)">or</span> '+cc.yb+' '+E(c.bu)+(sh&&c.shock?' <strong>(upgraded)</strong>':'')+'</div></div>'+
+ '<div class="pb them"><div class="who">'+E(c.themN)+'</div><div class="nums">'+cc.ta+' '+E(c.au)+' <span style="color:var(--soft)">or</span> '+cc.tb+' '+E(c.bu)+'</div></div></div>';}
 
 function header(c){const t={ind:"Individual",biz:"Business",gov:"Government",nat:"National"}[c.tier];
  return '<div class="client"><div class="avatar a-'+c.tier+'">'+c.icon+'</div><div>'+
@@ -191,55 +213,88 @@ function header(c){const t={ind:"Individual",biz:"Business",gov:"Government",nat
  '<div style="color:var(--soft)">'+c.head+'</div></div></div>';}
 
 function start(){chrome(false);
+const prev=stored();
+if(prev){app.innerHTML='<h1>Welcome back</h1><p class="sub">'+E(prev.name)+', you were partway through.</p>'+
+ '<div class="panel"><p style="margin-top:0">Your last session stopped on <strong>file '+(prev.i+1)+' of '+CASES.length+
+ '</strong>. Pick up where you left off, or clear it and start over.</p>'+
+ '<div class="btns"><button id="res">Resume file '+(prev.i+1)+'</button>'+
+ '<button id="fresh" class="ghost">Start over</button></div></div>';
+ document.getElementById('res').onclick=()=>{S=prev;if(!S.tmp)S.tmp={};
+  if(S.step==="math"||S.step==="mathFB"){S.step="brief";}play();};
+ document.getElementById('fresh').onclick=()=>{wipe();S={name:"",hour:"",i:0,step:"brief",log:[],refl:["","","",""],tmp:{}};start();};
+ return;}
 app.innerHTML='<h1>Advantage</h1><p class="sub">You are the economist. Eight clients, from two roommates to two countries, all with the same problem and none of them able to see it.</p>'+
 '<div class="panel"><p style="margin-top:0"><strong>Absolute advantage</strong> is producing more of something than someone else with the same resources. It is about output.</p>'+
 '<p><strong>Comparative advantage</strong> is producing something at a lower opportunity cost than someone else. It is about what you gave up.</p>'+
 '<p><strong>Opportunity cost</strong> is the value of the next best thing you did not choose.</p>'+
 '<div class="math"><strong>The one calculation, every time</strong><br>what you give up &divide; what you get<br><br>'+
 'A bakery makes 12 loaves or 4 cakes an hour. One loaf costs 4 &divide; 12 = a third of a cake. One cake costs 12 &divide; 4 = 3 loaves.</div>'+
-'<p style="margin-bottom:0">Each file: read the frontier, work the cost, recommend who produces what, then negotiate the terms. Nine points a case.</p></div>'+
+'<p><strong>Every file runs the same four steps.</strong></p>'+
+'<p style="margin:.3em 0"><strong>1.</strong> Say who can physically produce more.</p>'+
+'<p style="margin:.3em 0"><strong>2.</strong> Work out what one good costs your client in the other.</p>'+
+'<p style="margin:.3em 0"><strong>3.</strong> Tell them which good to produce.</p>'+
+'<p style="margin:.3em 0"><strong>4.</strong> Negotiate what your client gets paid.</p>'+
+'<p style="margin-bottom:0;color:var(--soft)">There is no score to chase here. Every wrong answer comes with a worked explanation, and getting one wrong on file two is how you get file three right.</p></div>'+
 '<label for="nm">Your name</label><input id="nm" placeholder="First and last">'+
 '<label for="hr">Class hour</label><input id="hr" placeholder="e.g. 3rd hour">'+
 '<div class="btns"><button id="go" disabled>Open the first file</button></div>';
 const nm=document.getElementById('nm'),hr=document.getElementById('hr'),go=document.getElementById('go');
 const ck=()=>go.disabled=!(nm.value.trim()&&hr.value.trim());nm.oninput=ck;hr.oninput=ck;
-go.onclick=()=>{S.name=nm.value.trim();S.hour=hr.value.trim();S.i=0;S.step="brief";S.pts=0;S.log=[];play();};}
+go.onclick=()=>{S.name=nm.value.trim();S.hour=hr.value.trim();S.i=0;S.step="brief";S.log=[];play();};}
 
-function play(){const c=CASES[S.i],sh=S.step!=="brief",cc=calc(c,sh);chrome(true);
-const L=S.log[S.i]||(S.log[S.i]={aaOK:null,mathOK:null,tries:0,specOK:null,spec:null,trade:"",tPts:0,scout:false});
+function play(){save();const c=CASES[S.i],sh=S.step!=="brief",cc=calc(c,sh);chrome(true);
+const L=S.log[S.i]||(S.log[S.i]={aaOK:null,mathOK:null,tries:0,specOK:null,spec:null,trade:"",frac:0,scout:false});
 
-if(S.step==="brief"){app.innerHTML='<div class="panel">'+header(c)+'<p>'+c.body+'</p>'+boxes(c,calc(c,false),false)+
- ppf(c,S.i,false)+'<p class="hint" style="text-align:center">Each line is every combination that client could produce. Where the lines differ in steepness, there is a deal.</p></div>'+
- (c.shock?'<div class="fb info"><div class="v">Development</div>'+c.shockText+'</div>':'')+
+if(S.step==="brief"){app.innerHTML='<div class="panel">'+header(c)+'<p>'+c.body+'</p>'+
+ (c.shock?'<h2 style="font-size:1.05rem;margin-top:14px">The frontier as things stand</h2>':'')+boxes(c,calc(c,false),false)+
+ ppf(c,S.i,false)+'<p class="hint" style="text-align:center;max-width:60ch;margin-left:auto;margin-right:auto">Each line shows everything that party could produce in one period &mdash; all of one good at one end, all of the other at the opposite end, any mix in between. The <em>steepness</em> of a line is what that party gives up. Two lines with different steepness means there is a deal here.</p></div>'+
+ (c.shock?'<div class="fb info"><div class="v">Development</div>'+c.shockText+'</div>'+
+  '<div class="panel"><h2 style="font-size:1.05rem">The frontier after the new line opens</h2>'+
+  boxes(c,calc(c,true),true)+ppf(c,S.i,true)+
+  '<p class="hint" style="text-align:center;max-width:60ch;margin-left:auto;margin-right:auto">'+
+  E(c.youN)+"'s line has swung outward. "+E(c.themN)+"'s has not moved at all. Compare the steepness of the two lines now against the chart above.</p></div>":'')+
  '<div class="btns"><button id="n">'+(c.shock?"Re-run the numbers":"Start the analysis")+'</button></div>';
  document.getElementById('n').onclick=()=>{S.step="math";play();};return;}
 
-if(S.step==="math"){const cln=x=>Math.abs(x*100-Math.round(x*100))<1e-6;const askA=cln(cc.ocy)?true:(cln(cc.ya/cc.yb)?false:cc.ocy<=cc.oct),fg=askA?c.a:c.b,tg=askA?c.b:c.a;
- S.tmp={correct:askA?cc.ocy:(cc.ya/cc.yb),fg:fg,tg:tg};
+if(S.step==="math"){const cln=x=>Math.abs(x*100-Math.round(x*100))<1e-6;const askA=cln(cc.ocy)?true:(cln(cc.ya/cc.yb)?false:cc.ocy<=cc.oct),fg=askA?c.a:c.b,tg=askA?c.b:c.a,fgs=askA?c.as1:c.bs1,tgu=askA?c.bu:c.au;
+ S.tmp={correct:askA?cc.ocy:(cc.ya/cc.yb),fg:fg,tg:tg,fgs:fgs,tgu:tgu};
  app.innerHTML='<div class="panel">'+header(c)+boxes(c,cc,sh)+'</div>'+
- '<div class="panel"><h2 style="font-size:1.1rem">Question 1 &mdash; who produces more?</h2>'+
- '<p class="hint" style="margin-top:0">Raw output only. This is the absolute advantage question.</p>'+
+ '<div class="panel"><h2 style="font-size:1.12rem">Question 1 &nbsp;&middot;&nbsp; Who can make more?</h2>'+
+ '<p class="hint" style="margin-top:0">Ignore cost completely. This is only about raw output &mdash; who physically produces more '+E(c.au)+' in one period. Pick one.</p>'+
  '<div class="btns"><button class="pick wide" data-aa="you">'+E(c.youN)+' makes more '+E(c.a)+'</button>'+
  '<button class="pick wide" data-aa="them">'+E(c.themN)+' makes more '+E(c.a)+'</button></div>'+
- '<label for="mi">Question 2 &mdash; one '+E(fg)+' costs '+E(c.youN)+' how many '+E(tg)+'?</label>'+
- '<input id="mi" inputmode="decimal" placeholder="a number, decimals fine" disabled>'+
- '<p class="hint" id="mh">Answer question 1 first.</p>'+
+ '<h2 style="font-size:1.12rem;margin-top:22px">Question 2 &nbsp;&middot;&nbsp; What does it cost?</h2>'+
+ '<div class="math"><strong>The rule, every time:</strong> what you give up &divide; what you get.<br><br>'+
+ 'A bakery can make 12 loaves <em>or</em> 4 cakes. To price one loaf: loaves are what you get, cakes are what you give up, '+
+ 'so 4 &divide; 12 = <strong>0.33 cakes per loaf</strong>.</div>'+
+ '<label for="mi">Using '+E(c.youN)+"'s two totals above &mdash; one "+E(fgs)+' costs them how many '+E(tgu)+'?</label>'+
+ '<input id="mi" inputmode="decimal" autocomplete="off" placeholder="type a number \u2014 0.5, .5 and 1/2 all work" disabled>'+
+ '<p class="hint" id="echo"></p>'+
+ '<p class="hint" id="mh">Answer question 1 first, then this box opens.</p>'+
  '<div class="btns"><button id="sub" disabled>Submit analysis</button></div></div>';
  let aa=null;
  app.querySelectorAll('[data-aa]').forEach(b=>b.onclick=()=>{
   aa=b.dataset.aa;app.querySelectorAll('[data-aa]').forEach(x=>x.style.borderColor="var(--line)");
-  b.style.borderColor="var(--or)";document.getElementById('mi').disabled=false;
-  document.getElementById('mh').textContent="Divide what they give up by what they get.";
-  document.getElementById('sub').disabled=false;});
+  b.style.borderColor="var(--or)";const mi=document.getElementById('mi');mi.disabled=false;mi.focus();
+  document.getElementById('mh').textContent="Decimals or a fraction, either is fine.";
+  document.getElementById('sub').disabled=false;
+  mi.oninput=()=>{const q=parseNum(mi.value);
+   document.getElementById('echo').innerHTML = mi.value.trim()===""?"" :
+    (isFinite(q)?'Reading that as <strong>'+N(q)+'</strong>':'That is not a number I can read yet.');};});
  document.getElementById('sub').onclick=()=>{
-  const v=parseFloat(document.getElementById('mi').value);
-  if(!isFinite(v))return;
-  if(L.aaOK===null){L.aaOK=(aa==="you")===(cc.ya>cc.ta);if(L.aaOK)S.pts+=1;}
+  const mi=document.getElementById('mi'),v=parseNum(mi.value);
+  if(!isFinite(v)){document.getElementById('mh').innerHTML=
+   '<strong>Nothing submitted.</strong> Type a number in the box first &mdash; 0.5, .5 or 1/2 are all fine.';return;}
+  if(L.aaOK===null){L.aaOK=(aa==="you")===(cc.ya>cc.ta);}
   const ok=Math.abs(v-S.tmp.correct)<0.035;L.tries++;
-  if(ok){L.mathOK=L.tries===1;S.pts+=L.tries===1?2:1;S.step="mathFB";play();}
-  else if(L.tries===1){document.getElementById('mi').value="";
-   document.getElementById('mh').innerHTML='<strong>Not it.</strong> '+E(c.youN)+' makes '+cc.ya+' '+E(c.a)+' or '+cc.yb+' '+E(c.b)+
-    '. Put what they give up on top. One more try, worth 1 point.';}
+  if(ok){L.mathOK=L.tries===1;S.step="mathFB";play();}
+  else if(L.tries===1){const inv=Math.abs(v-1/S.tmp.correct)<0.05;
+   mi.value="";document.getElementById('echo').innerHTML="";
+   document.getElementById('mh').innerHTML= inv?
+    '<strong>So close &mdash; that is the same trade upside down.</strong> You priced one '+E(tg.replace(/s$/,''))+
+     '. I asked for the price of one '+E(fgs)+', so '+E(fg)+' goes on the bottom. Flip it over and try again.'
+    :'<strong>Not it.</strong> '+E(c.youN)+' can make '+cc.ya+' '+E(c.a)+' <em>or</em> '+cc.yb+' '+E(c.b)+
+     '. You are pricing one '+E(fgs)+', so put '+E(fg)+' on the bottom and what they give up on top. Try once more.';}
   else{L.mathOK=false;S.step="mathFB";play();}};return;}
 
 if(S.step==="mathFB"){const t=S.tmp;
@@ -249,29 +304,42 @@ if(S.step==="mathFB"){const t=S.tmp;
   '. Useful to know and, on its own, not advice.</div>'+
  '<div class="fb '+(L.mathOK!==false?'good':'bad')+'"><div class="v">Opportunity cost: '+
   (L.mathOK===true?"correct, first try":L.mathOK===false?"the answer was "+N(t.correct):"correct on the second try")+'</div>'+
-  'One '+E(t.fg)+' costs '+E(c.youN)+' '+N(t.correct)+' '+E(t.tg)+'. That is the number the whole file turns on.</div>'+
+  'One '+E(t.fgs)+' costs '+E(c.youN)+' '+N(t.correct)+' '+E(t.tgu)+'. That is the number the whole file turns on.</div>'+
  (L.mathOK===true?'':walk(c,cc,t))+
- '<div class="math">'+E(c.youN)+': 1 '+E(t.fg)+' = '+N(t.correct)+' '+E(t.tg)+'<br>'+
-  E(c.themN)+': 1 '+E(t.fg)+' = '+N(t.fg===c.a?cc.oct:(cc.ta/cc.tb))+' '+E(t.tg)+'</div></div>'+
+ '<div class="math">'+E(c.youN)+': one '+E(t.fgs)+' = '+N(t.correct)+' '+E(t.tgu)+'<br>'+
+  E(c.themN)+': one '+E(t.fgs)+' = '+N(t.fg===c.a?cc.oct:(cc.ta/cc.tb))+' '+E(t.tgu)+'</div></div>'+
  '<div class="btns"><button id="n">Make the recommendation</button></div>';
  document.getElementById('n').onclick=()=>{S.step="spec";play();};return;}
 
-if(S.step==="spec"){app.innerHTML='<div class="panel">'+header(c)+
- '<div class="math">'+E(c.youN)+' gives up '+N(cc.ocy)+' '+E(c.b)+' per '+E(c.a)+'.<br>'+
-  E(c.themN)+' gives up '+N(cc.oct)+'.</div>'+
- '<p><strong>What do you tell '+E(c.youN)+' to produce?</strong></p>'+
+if(S.step==="spec"){
+ const cAy=cc.ocy,cAt=cc.oct,cBy=cc.ya/cc.yb,cBt=cc.ta/cc.tb;
+ const un=(v,u)=>(Math.abs(v-1)<0.005?u.replace(/^(\w+)s(\s+of\s+)/,'$1$2').replace(/ies$/,'y').replace(/s$/,''):u);
+ const row=(g,u,vy,vt)=>{const w=vy<vt;
+  return '<div class="cmp"><span class="cg">One '+E(g)+' costs</span>'+
+  '<span class="cv '+(w?'win':'lose')+'">'+E(c.youN)+' &nbsp;'+N(vy)+' '+E(un(vy,u))+'</span>'+
+  '<span class="cv '+(w?'lose':'win')+'">'+E(c.themN)+' &nbsp;'+N(vt)+' '+E(un(vt,u))+'</span>'+
+  '<span class="cheap">'+(w?E(c.youN):E(c.themN))+' gives up less</span></div>';};
+ app.innerHTML='<div class="panel">'+header(c)+
+ '<p style="margin-top:0"><strong>Read it off these two rows.</strong> Each row prices one good, and the highlighted side is whoever gives up less to make it. Your client should produce the good where <em>they</em> are the highlighted one.</p>'+
+ row(c.as1,c.bu,cAy,cAt)+row(c.bs1,c.au,cBy,cBt)+
+ '<p style="margin-top:14px"><strong>What do you tell '+E(c.youN)+' to produce?</strong></p>'+
  '<div class="btns"><button class="wide" data-p="A">All '+E(c.a)+'</button>'+
  '<button class="wide" data-p="B">All '+E(c.b)+'</button></div></div>';
  app.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{L.spec=b.dataset.p;L.specOK=b.dataset.p===cc.ca;
-  if(L.specOK)S.pts+=2;S.step="specFB";play();});return;}
+  S.step="specFB";play();});return;}
 
-if(S.step==="specFB"){const mine=cc.ca==="A"?c.a:c.b;
+if(S.step==="specFB"){const mine=cc.ca==="A"?c.a:c.b,other=cc.ca==="A"?c.bu:c.au,mineS=cc.ca==="A"?c.as1:c.bs1;
+ const my=cc.ca==="A"?cc.ocy:(cc.ya/cc.yb), th=cc.ca==="A"?cc.oct:(cc.ta/cc.tb);
  app.innerHTML='<div class="panel">'+header(c)+'<div class="fb '+(L.specOK?'good':'bad')+'">'+
  '<div class="v">'+(L.specOK?"Sound advice &mdash; "+E(mine)+".":"They should produce "+E(mine)+".")+'</div>'+
- E(c.youN)+' gives up '+N(cc.ocy)+' and '+E(c.themN)+' gives up '+N(cc.oct)+' for the same thing. Whoever gives up less should make it. '+
+ 'One '+E(mineS)+' costs '+E(c.youN)+' '+N(my)+' '+E(other)+', and costs '+E(c.themN)+' '+N(th)+' '+E(other)+
+ '. Your client gives up less, so '+E(mine)+' is theirs to make. '+
  (cc.ya>cc.ta&&cc.yb>cc.tb?'<br><br>Note for the file: your client out-produces them at <em>both</em> goods and it changes nothing. Producing more is not the same as giving up less.':
   cc.ta>cc.ya&&cc.tb>cc.yb?'<br><br>Note for the file: they are beaten at both goods and still hold something worth buying.':'')+
- '</div></div><div class="btns"><button id="n">Negotiate terms</button></div>';
+ '</div>'+(L.specOK?'':'<div class="fb info"><div class="v">Carrying on</div>'+
+  E(c.youN)+' went with the corrected plan and produced '+E(mine)+
+  '. The negotiation below is for that, so the numbers line up.</div>')+
+ '</div><div class="btns"><button id="n">Negotiate terms</button></div>';
  document.getElementById('n').onclick=()=>{S.step="trade";play();};return;}
 
 if(S.step==="trade"){const lo=Math.max(0,Math.floor(cc.floor*0.55)),hi=Math.ceil(cc.cap*1.45);
@@ -280,68 +348,86 @@ if(S.step==="trade"){const lo=Math.max(0,Math.floor(cc.floor*0.55)),hi=Math.ceil
  app.innerHTML='<div class="panel">'+header(c)+
  '<p style="margin-top:0">'+E(c.youN)+' produced <strong>'+cc.makes+' '+E(cc.giveU)+'</strong> and is offering '+E(c.themN)+
   ' <strong>'+cc.Q+' '+E(cc.giveU)+'</strong>, to be paid in '+E(cc.want)+'.</p>'+
- '<div class="math">Producing those '+cc.Q+' '+E(cc.giveU)+' cost your client '+N(cc.floor)+' '+E(cc.wantU)+
-  ' of output they did not make. Settle at or below that and you have advised them into a loss.<br>'+
-  E(c.themN)+' will not pay more than building it themselves would cost. You do not know that number yet.</div>'+
+ '<div class="math"><strong>Two numbers govern this.</strong><br><br>'+
+  '<strong>Your floor &mdash; '+N(cc.floor)+' '+E(cc.wantU)+'.</strong> Making those '+cc.Q+' '+E(cc.giveU)+
+  ' meant giving up '+N(cc.floor)+' '+E(cc.wantU)+' your client could have produced instead. Settle at or below that and the deal loses them money.<br><br>'+
+  '<strong>Their ceiling &mdash; unknown.</strong> '+E(c.themN)+' will not pay more than it would cost them to just make it in house. That number is somewhere above your floor and you cannot see it.<br><br>'+
+  'Push higher and your client keeps more of the gain. Cross their ceiling and they walk away with nothing signed.</div>'+
  '<div class="ask" id="av">'+N(v0)+' <span style="font-size:.9rem;font-weight:600;color:var(--soft)">'+E(cc.wantU)+'</span></div>'+
  '<div class="track"><div class="zone lose" style="left:0;width:'+pc(cc.floor)+'%"></div>'+
   '<div class="zone risk" style="left:'+pc(cc.floor)+'%;right:0"></div>'+
   '<div class="mk" id="mk" style="left:'+pc(v0)+'%"></div></div>'+
- '<div class="gauge"><span>a loss for your client</span><span>profit, then refusal &mdash; somewhere</span></div>'+
+ '<div class="gauge"><span>&larr; below your floor: a loss</span><span>profit &mdash; until their ceiling</span></div>'+
+ '<p class="hint" style="text-align:center;margin:2px 0 8px">Drag the slider, then table the offer.</p>'+
  '<input type="range" id="sl" min="'+lo+'" max="'+hi+'" step="'+st+'" value="'+v0+'">'+
  '<div class="btns"><button id="of">Table the offer</button>'+
- (L.scout?'':'<button id="sc" class="ghost small">Commission a cost study (\u22121 point)</button>')+'</div>'+
+ (L.scout?'':'<button id="sc" class="ghost small">Commission a cost study</button>')+'</div>'+
  '<p class="hint" id="sh"></p></div>';
  const sl=document.getElementById('sl'),av=document.getElementById('av'),mk=document.getElementById('mk');
  sl.oninput=()=>{av.innerHTML=N(parseFloat(sl.value))+' <span style="font-size:.9rem;font-weight:600;color:var(--soft)">'+cc.wantU+'</span>';
   mk.style.left=pc(parseFloat(sl.value))+'%';};
- if(!L.scout)document.getElementById('sc').onclick=()=>{L.scout=true;S.pts=Math.max(0,S.pts-1);chrome(true);
+ if(!L.scout)document.getElementById('sc').onclick=()=>{L.scout=true;chrome(true);
   document.getElementById('sc').remove();
   document.getElementById('sh').innerHTML='<strong>Study returns:</strong> producing '+cc.Q+' '+E(cc.giveU)+' in house would cost '+
    E(c.themN)+' about '+N(cc.cap)+' '+E(cc.wantU)+'. They will not sign above it.';};
  document.getElementById('of').onclick=()=>{const ask=parseFloat(sl.value);S.tmp.ask=ask;
   if(ask>cc.cap){L.trade="refused";S.step=L.retried?"tradeFB":"retry";play();}
-  else if(ask<=cc.floor){L.trade="undersold";L.tPts=L.retried?0:1;S.pts+=L.tPts;S.step="tradeFB";play();}
-  else{const f=(ask-cc.floor)/(cc.cap-cc.floor);let p=f>0.8?4:f>0.55?3:f>0.3?2:1;
-   if(L.retried)p=Math.min(p,2);L.trade="signed at "+N(ask);L.tPts=p;S.pts+=p;S.step="tradeFB";play();}};return;}
+  else if(ask<=cc.floor){L.trade="undersold";L.frac=0;S.step="tradeFB";play();}
+  else{L.frac=(ask-cc.floor)/(cc.cap-cc.floor);L.trade="signed at "+N(ask);S.step="tradeFB";play();}};return;}
 
 if(S.step==="retry"){app.innerHTML='<div class="panel">'+header(c)+
  '<div class="fb bad"><div class="v">'+E(c.themN)+' walked.</div>You asked '+N(S.tmp.ask)+' '+E(cc.wantU)+
  ' for '+cc.Q+' '+E(cc.giveU)+'. They can produce that in house for less, so your price bought them nothing.</div>'+
- '<p>You get one more offer on this file. Best case now, 2 points.</p></div>'+
+ '<p>You get one more offer on this file. Aim lower than you just did.</p></div>'+
  '<div class="btns"><button id="n">Revise the offer</button></div>';
  document.getElementById('n').onclick=()=>{L.retried=true;S.step="trade";play();};return;}
 
 const last=S.i===CASES.length-1,ok=L.trade.indexOf("signed")===0;
-const caseP=(L.aaOK?1:0)+(L.mathOK===true?2:L.mathOK===false?0:1)+(L.specOK?2:0)+L.tPts-(L.scout?1:0);
+const f=L.frac||0;
+const grade=!ok?"":f>0.8?"You took almost everything that was available.":f>0.55?"A strong settlement.":
+ f>0.3?"Fair, though there was more on the table.":"Signed, but only just above your client's own cost.";
+const mark=(t,good)=>'<div class="row"><span>'+t+'</span><span class="'+(good?'y':'n')+'">'+(good?'\u2713':'\u2715')+'</span></div>';
 app.innerHTML='<div class="panel">'+header(c)+
 '<div class="fb '+(ok?'good':'bad')+'"><div class="v">'+
- (ok?"Signed &mdash; "+L.tPts+" of 4 on terms.":L.trade==="undersold"?"They signed before you finished speaking.":"No agreement.")+'</div>'+
+ (ok?"Agreement signed.":L.trade==="undersold"?"They signed before you finished speaking.":"No agreement.")+'</div>'+
  (ok?'Your client gave '+cc.Q+' '+E(cc.giveU)+' and received '+N(S.tmp.ask)+' '+E(cc.wantU)+
-   '. Their own cost was '+N(cc.floor)+'; '+E(c.themN)+"'s limit was "+N(cc.cap)+'. Everything between those two numbers was on the table.'
+   '. Their own cost was '+N(cc.floor)+'; '+E(c.themN)+"'s limit turned out to be "+N(cc.cap)+
+   '. Everything between those two numbers was on the table. '+grade
   :L.trade==="undersold"?'You settled at '+N(S.tmp.ask)+', and producing it had already cost your client '+N(cc.floor)+
-   '. At or below their own cost, the deal destroys value.'
-  :'Their ceiling was '+N(cc.cap)+' '+E(cc.wantU)+'. Above it they build it themselves and you get nothing.')+'</div>'+
-'<div class="row"><span>Absolute advantage</span><span class="'+(L.aaOK?'y':'n')+'">'+(L.aaOK?'1':'0')+' / 1</span></div>'+
-'<div class="row"><span>Opportunity cost</span><span class="'+(L.mathOK===true?'y':L.mathOK===false?'n':'')+'">'+(L.mathOK===true?2:L.mathOK===false?0:1)+' / 2</span></div>'+
-'<div class="row"><span>Recommendation</span><span class="'+(L.specOK?'y':'n')+'">'+(L.specOK?'2':'0')+' / 2</span></div>'+
-'<div class="row"><span>Terms negotiated</span><span class="'+(L.tPts>2?'y':L.tPts?'':'n')+'">'+L.tPts+' / 4</span></div>'+
-(L.scout?'<div class="row"><span>Cost study commissioned</span><span class="n">&minus;1</span></div>':'')+
-'<div class="row"><strong>File total</strong><strong>'+caseP+' &mdash; running '+S.pts+'</strong></div></div>'+
-'<div class="btns"><button id="n">'+(last?"Close the practice":"Next file")+'</button></div>';
+   '. At or below their own cost, the deal destroys value rather than creating it.'
+  :'Their ceiling was '+N(cc.cap)+' '+E(cc.wantU)+'. Above that they build it in house and nothing gets signed.')+'</div>'+
+mark("Who produces more",L.aaOK)+
+'<div class="row"><span>Opportunity cost</span><span class="'+(L.mathOK===true?'y':L.mathOK===false?'n':'')+'">'+
+ (L.mathOK===true?'\u2713 first try':L.mathOK===false?'\u2715 worked through':'\u2713 second try')+'</span></div>'+
+mark("Recommendation",L.specOK)+
+'<div class="row"><span>Terms</span><span class="'+(ok?'y':'n')+'">'+(ok?'signed at '+N(S.tmp.ask)+' '+E(cc.wantU):'no deal')+'</span></div>'+
+(L.scout?'<div class="row"><span>Cost study</span><span style="color:var(--soft)">commissioned</span></div>':'')+
+'</div><div class="btns"><button id="n">'+(last?"Close the practice":"Next file")+'</button></div>';
 document.getElementById('n').onclick=()=>{if(last){reflect();}else{S.i++;S.step="brief";play();}};}
 
-function rank(p){return p>=63?"Chief Economist":p>=50?"Senior Advisor":p>=36?"Associate":"Junior Analyst";}
+function tally(){let aa=0,m1=0,m2=0,mm=0,sp=0,sg=0,sc=0;
+ S.log.forEach(l=>{if(!l)return;if(l.aaOK)aa++;if(l.mathOK===true)m1++;else if(l.mathOK===false)mm++;else m2++;
+  if(l.specOK)sp++;if((l.trade||"").indexOf("signed")===0)sg++;if(l.scout)sc++;});
+ return{aa:aa,m1:m1,m2:m2,mm:mm,sp:sp,sg:sg,sc:sc,n:S.log.length};}
 
-function reflect(){chrome(false);
-app.innerHTML='<div class="score">'+S.pts+' <span style="font-size:1.3rem;color:var(--soft);font-weight:600">of 72</span></div>'+
-'<div class="rank">'+rank(S.pts)+'</div><p class="sub" style="margin-top:8px">Four questions. All four need real answers before the download unlocks.</p>'+
+function reflect(){save();chrome(false);const t=tally();
+app.innerHTML='<h1>Practice closed</h1><p class="sub">Eight files, from two roommates to two national economies. Here is what the record shows.</p>'+
+'<div class="panel">'+
+'<div class="row"><span>Identified who produces more</span><strong>'+t.aa+' of '+t.n+'</strong></div>'+
+'<div class="row"><span>Opportunity cost, first try</span><strong>'+t.m1+' of '+t.n+'</strong></div>'+
+(t.m2?'<div class="row"><span>Opportunity cost, second try</span><strong>'+t.m2+'</strong></div>':'')+
+(t.mm?'<div class="row"><span>Worked through together</span><strong>'+t.mm+'</strong></div>':'')+
+'<div class="row"><span>Correct recommendation</span><strong>'+t.sp+' of '+t.n+'</strong></div>'+
+'<div class="row"><span>Agreements signed</span><strong>'+t.sg+' of '+t.n+'</strong></div>'+
+(t.sc?'<div class="row"><span>Cost studies commissioned</span><strong>'+t.sc+'</strong></div>':'')+
+'</div>'+
+'<p class="sub" style="margin-top:20px">Now four questions about the idea itself, not about any particular client. Answer all four and the download unlocks.</p>'+
 QS.map((q,i)=>'<label for="q'+i+'">'+(i+1)+'. '+E(q)+'</label><textarea id="q'+i+'">'+E(S.refl[i])+'</textarea>').join('')+
 '<div class="btns" style="margin-top:18px"><button id="dl" disabled>Download my PDF</button></div>'+
 '<p class="hint" id="w">Each answer needs at least a sentence.</p>';
 const dl=document.getElementById('dl'),w=document.getElementById('w');
 const ck=()=>{QS.forEach((_,i)=>S.refl[i]=document.getElementById('q'+i).value);
- const d=S.refl.every(t=>t.trim().length>=40);dl.disabled=!d;
+ save();const d=S.refl.every(x=>x.trim().length>=40);dl.disabled=!d;
  w.textContent=d?"Ready. Download it, then upload the PDF to Canvas.":"Each answer needs at least a sentence.";};
 QS.forEach((_,i)=>document.getElementById('q'+i).oninput=ck);ck();dl.onclick=pdf;}
 
@@ -356,14 +442,16 @@ function pdf(){const L=[],A=(t,o={})=>L.push({t:t,b:!!o.b,s:o.s||11,gap:o.gap||0
  A("Absolute and Comparative Advantage",{gap:6});
  A("Name: "+S.name+"        Class hour: "+S.hour,{b:1,gap:2});
  A("Completed: "+new Date().toLocaleDateString(),{gap:10});
- A("RESULT",{b:1,s:13,gap:4});
- A("Final score: "+S.pts+" of 72   ("+rank(S.pts)+")",{b:1,gap:6});
+ const tl=tally();
+ A("RECORD",{b:1,s:13,gap:4});
+ A("Identified who produces more: "+tl.aa+" of "+tl.n+"        Correct recommendation: "+tl.sp+" of "+tl.n,{b:1});
+ A("Opportunity cost correct first try: "+tl.m1+" of "+tl.n+"        Agreements signed: "+tl.sg+" of "+tl.n,{b:1,gap:6});
  CASES.forEach((c,i)=>{const l=S.log[i]||{},cc=calc(c,true);
   A("File "+(i+1)+" - "+c.n.replace(/&amp;/g,'&')+"  ["+{ind:"individual",biz:"business",gov:"government",nat:"national"}[c.tier]+"]",{b:1});
   A("   Absolute advantage: "+(l.aaOK?"correct":"missed")+"    Opportunity cost: "+
     (l.mathOK===true?"correct, first try":l.mathOK===false?"missed":"correct, second try"));
   A("   Advised: "+(l.spec==="A"?c.a:c.b)+"  ("+(l.specOK?"correct":"should have been "+(cc.ca==="A"?c.a:c.b))+")");
-  A("   Terms: "+(l.trade||"-")+"  ("+(l.tPts||0)+" of 4)"+(l.scout?"  [cost study used]":""),{gap:4});});
+  A("   Terms: "+(l.trade||"no agreement")+(l.scout?"   [cost study commissioned]":""),{gap:4});});
  L.push({t:"",s:11,gap:10});A("REFLECTION",{b:1,s:13,gap:4});
  QS.forEach((q,i)=>{wr((i+1)+". "+q,88).forEach(x=>A(x,{b:1,s:10.5}));
   wr(S.refl[i],92).forEach(x=>A(x));L.push({t:"",s:11,gap:9});});
@@ -388,6 +476,6 @@ function pdf(){const L=[],A=(t,o={})=>L.push({t:t,b:!!o.b,s:o.s||11,gap:o.gap||0
  const u=URL.createObjectURL(new Blob([by],{type:"application/pdf"}));
  const a=document.createElement('a');a.href=u;a.download="Advantage - "+S.name.replace(/[^A-Za-z0-9 ]/g,"")+".pdf";
  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);
- document.getElementById('w').textContent="Downloaded. Upload that PDF to Canvas.";}
+ wipe();document.getElementById('w').textContent="Downloaded. Upload that PDF to Canvas.";}
 start();
 </script></body></html>
